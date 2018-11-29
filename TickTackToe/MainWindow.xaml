@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TickTackToe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="Tic-Tac-Toe" Height="322" Width="242" FontSize="14" ResizeMode="NoResize" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+    <DockPanel Height="Auto" Name="stackPanel1" Width="Auto" LastChildFill="True">
+        <Label DockPanel.Dock="Top"  Width="Auto" x:Name="lblInstructions" Content="Welcome to Tic-Tac-Toe" HorizontalAlignment="Center" Margin="5,0,5,0"/>
+        <Grid DockPanel.Dock="Top"  Width="Auto">
+            <Button x:Name="btn_11" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_11_Click"/>
+            <Button x:Name="btn_12" Content="" HorizontalAlignment="Left" Margin="81,10,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_12_Click"/>
+            <Button x:Name="btn_13" Content="" HorizontalAlignment="Left" Margin="152,10,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_13_Click"/>
+            <Button x:Name="btn_21" Content="" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_21_Click"/>
+            <Button x:Name="btn_22" Content="" HorizontalAlignment="Left" Margin="81,68,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_22_Click"/>
+            <Button x:Name="btn_23" Content="" HorizontalAlignment="Left" Margin="152,68,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_23_Click"/>
+            <Button x:Name="btn_31" Content="" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_31_Click"/>
+            <Button x:Name="btn_32" Content="" HorizontalAlignment="Left" Margin="81,126,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_32_Click"/>
+            <Button x:Name="btn_33" Content="" HorizontalAlignment="Left" Margin="152,126,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_33_Click"/>
+        </Grid>
+        <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1" Margin="5">
+            <Grid>
+
+                <Button x:Name="btnNewGame" Margin="21,10,112,10" Click="btnNewGame_Click">New Game</Button>
+                <Button x:Name="btnQuit" Margin="126,10,20,10" Click="btnQuit_Click">Quit</Button>
+            </Grid>
+        </Border>
+    </DockPanel>
+
 </Window>
