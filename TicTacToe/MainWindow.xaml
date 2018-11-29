@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TicTacToe"
         mc:Ignorable="d"
-        Title="Tic-Tac-Toe" Height="322" Width="242" FontSize="14" ResizeMode="NoResize" SizeToContent="Height" WindowStartupLocation="CenterScreen">
+        Title="Tic-Tac-Toe" Height="331" Width="242" FontSize="14" ResizeMode="NoResize" SizeToContent="Height" WindowStartupLocation="CenterScreen">
     <DockPanel Height="Auto" Name="stackPanel1" Width="Auto" LastChildFill="True">
         <Label DockPanel.Dock="Top"  Width="Auto" x:Name="lblInstructions" Content="Welcome to Tic-Tac-Toe" HorizontalAlignment="Center" Margin="5,0,5,0"/>
         <Grid DockPanel.Dock="Top"  Width="Auto">
@@ -20,11 +20,21 @@
             <Button x:Name="btn_33" Content="" HorizontalAlignment="Left" Margin="152,126,0,0" VerticalAlignment="Top" Width="66" Height="53" Click="btn_33_Click"/>
         </Grid>
         <Border DockPanel.Dock="Top" BorderBrush="Black" BorderThickness="1" Margin="5">
-            <Grid>
+            <DockPanel >
+                <DockPanel DockPanel.Dock="Top" HorizontalAlignment="Center">
+                    <Button x:Name="btnNewGame" Margin="5"  Click="btnNewGame_Click">New Game</Button>
+                    <Button x:Name="btnQuit"  Margin="5" Click="btnQuit_Click">Quit</Button>
+                </DockPanel>
+                <Expander Margin="10" Header="Options" >
+                    <StackPanel Margin="15">
+                        <Label FontWeight="Bold">Game Mode</Label>
+                        <RadioButton x:Name="radBtnAiMode" IsChecked="True" Checked="radBtnAiMode_Checked">AI</RadioButton>
+                        <RadioButton x:Name="radBtnTwoPlayerMode" Checked="radBtnTwoPlayerMode_Checked">Two Player</RadioButton>
+                    </StackPanel>
+                </Expander>
+                
+        </DockPanel>
 
-                <Button x:Name="btnNewGame" Margin="21,10,112,10" Click="btnNewGame_Click">New Game</Button>
-                <Button x:Name="btnQuit" Margin="126,10,20,10" Click="btnQuit_Click">Quit</Button>
-            </Grid>
         </Border>
     </DockPanel>
 

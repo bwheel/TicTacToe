@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,26 +24,80 @@ namespace TicTacToe
         private Player player1;
         private Player player2;
         private Player currentPlayer;
+        private GameMode gameMode;
+        private GameState gameState;
+
+        private Button[,] board;
         public MainWindow()
         {
+            gameMode = GameMode.AI;
+            gameState = GameState.Setup;
             player1 = new Player("1", "X");
             player2 = new Player("2", "O");
             currentPlayer = player1;
+            board = new Button[3,3];
             InitializeComponent();
+
+            board[0,0] = btn_11;
+            board[0,1] = btn_12;
+            board[0,2] = btn_13;
+
+            board[1,0] = btn_21;
+            board[1,1] = btn_22;
+            board[1,2] = btn_23;
+
+            board[2,0] = btn_31;
+            board[2,1] = btn_32;
+            board[2,2] = btn_33;
+        }
+
+        private bool threeInRow()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (board[i,0].Content.ToString() == currentPlayer.Move &&
+                    board[i,1].Content.ToString() == currentPlayer.Move &&
+                    board[i,2].Content.ToString() == currentPlayer.Move)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool threeInColumn()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (board[0,i].Content.ToString() == currentPlayer.Move &&
+                    board[1,i].Content.ToString() == currentPlayer.Move &&
+                    board[2,i].Content.ToString() == currentPlayer.Move)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool threeInDiagonal()
+        {
+            if ((board[0,0].Content.ToString() == currentPlayer.Move &&
+                 board[1,1].Content.ToString() == currentPlayer.Move &&
+                 board[2,2].Content.ToString() == currentPlayer.Move) ||
+                (board[0,2].Content.ToString() == currentPlayer.Move &&
+                 board[1,1].Content.ToString() == currentPlayer.Move &&
+                 board[2,0].Content.ToString() == currentPlayer.Move))
+            {
+                return true;
+            }
+            return false;
         }
 
         private void updateGame(Button btn)
         {
             updateButton(btn);
-
-            if ((btn_11.Content.ToString() == currentPlayer.Move && btn_12.Content.ToString() == currentPlayer.Move && btn_13.Content.ToString() == currentPlayer.Move) || // row 1
-               (btn_21.Content.ToString() == currentPlayer.Move && btn_22.Content.ToString() == currentPlayer.Move && btn_23.Content.ToString() == currentPlayer.Move) || // row 2
-               (btn_31.Content.ToString() == currentPlayer.Move && btn_32.Content.ToString() == currentPlayer.Move && btn_33.Content.ToString() == currentPlayer.Move) || // row 3
-               (btn_11.Content.ToString() == currentPlayer.Move && btn_21.Content.ToString() == currentPlayer.Move && btn_31.Content.ToString() == currentPlayer.Move) || // col 1
-               (btn_12.Content.ToString() == currentPlayer.Move && btn_22.Content.ToString() == currentPlayer.Move && btn_32.Content.ToString() == currentPlayer.Move) || // col 2
-               (btn_13.Content.ToString() == currentPlayer.Move && btn_23.Content.ToString() == currentPlayer.Move && btn_33.Content.ToString() == currentPlayer.Move) || // col 3
-               (btn_11.Content.ToString() == currentPlayer.Move && btn_22.Content.ToString() == currentPlayer.Move && btn_33.Content.ToString() == currentPlayer.Move) || // diagonal top-left to bottom-right
-               (btn_13.Content.ToString() == currentPlayer.Move && btn_22.Content.ToString() == currentPlayer.Move && btn_31.Content.ToString() == currentPlayer.Move))   // diagonal top-right to bottom-left
+            
+            if(threeInRow() || threeInColumn() || threeInDiagonal())
             {
                 // Step 1. disable all buttons.
                 enableAllButtons(false);
@@ -51,11 +106,35 @@ namespace TicTacToe
                 lblInstructions.Content = $"Player {currentPlayer.Name} wins!";
                 
             }
-            else
+            else 
             {
                 currentPlayer = (currentPlayer == player1) ? player2 : player1;
                 lblInstructions.Content = $"Player {currentPlayer.Name} turn.";
+
+                if(gameMode == GameMode.AI && currentPlayer == player2)
+                {
+                    Thread.Sleep(100);
+                    Button guess = generateGuess();
+                    updateGame(guess);
+                }
             }
+        }
+
+        private Button generateGuess()
+        {
+            Random rng = new Random();
+            Button guess = null;
+            while (guess == null)
+            {
+                int x = rng.Next(0, 3);
+                int y = rng.Next(0, 3);
+                if(string.IsNullOrWhiteSpace(board[x,y].Content.ToString()))
+                {
+                    guess = board[x,y];
+                }
+            }
+            return guess;
+            
         }
 
         private void enableAllButtons(bool enabled)
@@ -146,6 +225,18 @@ namespace TicTacToe
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void radBtnAiMode_Checked(object sender, RoutedEventArgs e)
+        {
+            btnNewGame_Click(null, null);
+            gameMode = GameMode.AI;
+        }
+
+        private void radBtnTwoPlayerMode_Checked(object sender, RoutedEventArgs e)
+        {
+            btnNewGame_Click(null, null);
+            gameMode = GameMode.TwoPlayer;
         }
     }
 }
