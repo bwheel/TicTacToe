@@ -13,6 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{6667C01E-8E57-485E-A229-F5A3DDBB2F36}"
+	ProjectSection(SolutionItems) = preProject
+		Resources\Tic-Tac-Toe-Gameplay.gif = Resources\Tic-Tac-Toe-Gameplay.gif
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,5 +31,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6667C01E-8E57-485E-A229-F5A3DDBB2F36} = {098A39B1-FCD7-4530-9A85-4CB6F7BC76CB}
 	EndGlobalSection
 EndGlobal
